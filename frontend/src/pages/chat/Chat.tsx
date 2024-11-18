@@ -976,7 +976,7 @@ const Chat = () => {
                 {activeCitation.title}
               </h5>
               <div tabIndex={0} style={{maxWidth:'100%'}}>
-                {DOMPurify.sanitize(activeCitation.content, { ALLOWED_TAGS: XSSAllowTags }).split(" ").map(item=> <img src={'/refs/'+item+'.png'} alt={item} onError={(e:any) => e.target.style.display = 'none'} style={{maxWidth:'100%'}}/>)}
+                {DOMPurify.sanitize(activeCitation.content, { ALLOWED_TAGS: XSSAllowTags }).split(" ").map(item=> <img src={'/'+item+'.png'} alt={item} onError={(e:any) => e.target.style.display = 'none'} style={{maxWidth:'100%'}}/>)}
                 {/*<ReactMarkdown*/}
                 {/*  linkTarget="_blank"*/}
                 {/*  className={styles.citationPanelContent}*/}
