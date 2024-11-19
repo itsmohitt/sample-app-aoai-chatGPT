@@ -893,38 +893,38 @@ const Chat = () => {
                     aria-label="start a new chat button"
                   />
                 )}
-                <CommandBarButton
-                  role="button"
-                  styles={{
-                    icon: {
-                      color: '#FFFFFF'
-                    },
-                    iconDisabled: {
-                      color: '#BDBDBD !important'
-                    },
-                    root: {
-                      color: '#FFFFFF',
-                      background:
-                        'radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)'
-                    },
-                    rootDisabled: {
-                      background: '#F0F0F0'
-                    }
-                  }}
-                  className={
-                    appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured
-                      ? styles.clearChatBroom
-                      : styles.clearChatBroomNoCosmos
-                  }
-                  iconProps={{ iconName: 'Broom' }}
-                  onClick={
-                    appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured
-                      ? clearChat
-                      : newChat
-                  }
-                  disabled={disabledButton()}
-                  aria-label="clear chat button"
-                />
+                {/*<CommandBarButton*/}
+                {/*  role="button"*/}
+                {/*  styles={{*/}
+                {/*    icon: {*/}
+                {/*      color: '#FFFFFF'*/}
+                {/*    },*/}
+                {/*    iconDisabled: {*/}
+                {/*      color: '#BDBDBD !important'*/}
+                {/*    },*/}
+                {/*    root: {*/}
+                {/*      color: '#FFFFFF',*/}
+                {/*      background:*/}
+                {/*        'radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)'*/}
+                {/*    },*/}
+                {/*    rootDisabled: {*/}
+                {/*      background: '#F0F0F0'*/}
+                {/*    }*/}
+                {/*  }}*/}
+                {/*  className={*/}
+                {/*    appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured*/}
+                {/*      ? styles.clearChatBroom*/}
+                {/*      : styles.clearChatBroomNoCosmos*/}
+                {/*  }*/}
+                {/*  iconProps={{ iconName: 'Broom' }}*/}
+                {/*  onClick={*/}
+                {/*    appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured*/}
+                {/*      ? clearChat*/}
+                {/*      : newChat*/}
+                {/*  }*/}
+                {/*  disabled={disabledButton()}*/}
+                {/*  aria-label="clear chat button"*/}
+                {/*/>*/}
                 <Dialog
                   hidden={hideErrorDialog}
                   onDismiss={handleErrorDialogClose}
@@ -976,7 +976,7 @@ const Chat = () => {
                 {activeCitation.title}
               </h5>
               <div tabIndex={0} style={{maxWidth:'100%'}}>
-                {DOMPurify.sanitize(activeCitation.content, { ALLOWED_TAGS: XSSAllowTags }).split(" ").map(item=> <img src={'https://indigopdfpoc.blob.core.windows.net/refs/'+item+'.png'} alt={item} onError={(e:any) => e.target.style.display = 'none'} style={{maxWidth:'100%'}}/>)}
+                {DOMPurify.sanitize(activeCitation.content, { ALLOWED_TAGS: XSSAllowTags }).split(" ").map(item=> <img src={'https://indigopdfpoc.blob.core.windows.net/refs/'+item+'.png'} key={item} alt={item} onError={(e:any) => e.target.style.display = 'none'} style={{maxWidth:'100%'}}/>)}
                 {/*<ReactMarkdown*/}
                 {/*  linkTarget="_blank"*/}
                 {/*  className={styles.citationPanelContent}*/}
