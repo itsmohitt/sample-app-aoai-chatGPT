@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import uuid from 'react-uuid'
-import { isEmpty } from 'lodash'
+import { isEmpty, dropRight, isNaN, concat } from 'lodash'
 import DOMPurify from 'dompurify'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -66,6 +66,22 @@ const Chat = () => {
   const [logo, setLogo] = useState('')
   const [answerId, setAnswerId] = useState<string>('')
 
+  const [previousPages,setPreviousPage] = useState<any>({})
+
+  const addPreviousImage = (src:any) =>{
+    let splitedSrc = src.split("-")
+    if(!isNaN(splitedSrc[splitedSrc.length - 1]))
+      setPreviousPage((prevState:any) => {
+        return {
+          ...prevState,
+          [src]: concat(dropRight([...splitedSrc]),splitedSrc[splitedSrc.length - 1] - 1).join('-'),
+          [`#$#${src}`] : src
+        }
+      })
+  }
+  useEffect(()=>{
+    setPreviousPage({})
+  },[activeCitation])
   const errorDialogContentProps = {
     type: DialogType.close,
     title: errorMsg?.title,
@@ -976,7 +992,9 @@ const Chat = () => {
                 {activeCitation.title}
               </h5>
               <div tabIndex={0} style={{maxWidth:'100%'}}>
-                {DOMPurify.sanitize(activeCitation.content, { ALLOWED_TAGS: XSSAllowTags }).split(" ").map(item=> <img src={'https://indigopdfpoc.blob.core.windows.net/refs/'+item+'.png'} key={item} alt={item} onError={(e:any) => e.target.style.display = 'none'} style={{maxWidth:'100%'}}/>)}
+                {DOMPurify.sanitize(activeCitation.content, { ALLOWED_TAGS: XSSAllowTags }).split(" ").map(item=> {return <>
+                {previousPages[item] && !previousPages[`#$#${previousPages[item]}`] ? <img src={'https://indigopdfpoc.blob.core.windows.net/refs/'+previousPages[item]+'.png'} key={previousPages[item]} alt={previousPages[item]} onError={(e:any) => e.target.style.display = 'none'}  style={{maxWidth:'100%'}}/> : null}
+                 <img src={'https://indigopdfpoc.blob.core.windows.net/refs/'+item+'.png'} key={item} alt={item} onError={(e:any) => e.target.style.display = 'none'} onLoad={()=>addPreviousImage(item)} style={{maxWidth:'100%'}}/></>})}
                 {/*<ReactMarkdown*/}
                 {/*  linkTarget="_blank"*/}
                 {/*  className={styles.citationPanelContent}*/}
