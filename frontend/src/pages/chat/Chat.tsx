@@ -824,7 +824,7 @@ const Chat = () => {
                           </div>
                           <Stack.Item className={styles.answerDisclaimerContainer}>
 
-                            <span className={styles.answerDisclaimer}>{ answer.date ? new Date(answer.date).toUTCString() : ''}</span>
+                            <span className={styles.answerDisclaimer}>{answer.date ? new Date(answer.date).toDateString() +" "+ new Date(answer.date).toLocaleTimeString() +" IST" : ''}</span>
                           </Stack.Item>
                         </div>
                       </div>

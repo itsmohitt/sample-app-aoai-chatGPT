@@ -325,7 +325,7 @@ export const Answer = ({ answer, onCitationClicked, onExectResultClicked }: Prop
             </Stack.Item>
           )}
           <Stack.Item className={styles.answerDisclaimerContainer}>
-            <span className={styles.answerDisclaimer}>{ answer.date ? new Date(answer.date).toUTCString() : ''}</span>
+            <span className={styles.answerDisclaimer}>{answer.date ? new Date(answer.date).toDateString() +" "+ new Date(answer.date).toLocaleTimeString() +" IST" : ''}</span>
           </Stack.Item>
           {!!answer.exec_results?.length && (
             <Stack.Item onKeyDown={e => (e.key === 'Enter' || e.key === ' ' ? toggleIsRefAccordionOpen() : null)}>
