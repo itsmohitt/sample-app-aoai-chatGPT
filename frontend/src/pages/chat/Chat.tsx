@@ -773,6 +773,7 @@ const Chat = () => {
     )
   }
 
+  // @ts-ignore
   return (
     <div className={styles.container} role="main">
       {showAuthMessage ? (
@@ -818,7 +819,13 @@ const Chat = () => {
                     {answer.role === 'user' ? (
                       <div className={styles.chatMessageUser} tabIndex={0}>
                         <div className={styles.chatMessageUserMessage}>
+                          <div className={styles.chatMessageContainer}>
                           {typeof answer.content === "string" && answer.content ? answer.content : Array.isArray(answer.content) ? <>{answer.content[0].text} <img className={styles.uploadedImageChat} src={answer.content[1].image_url.url} alt="Uploaded Preview" /></> : null}
+                          </div>
+                          <Stack.Item className={styles.answerDisclaimerContainer}>
+
+                            <span className={styles.answerDisclaimer}>{ answer.date ? new Date(answer.date).toUTCString() : ''}</span>
+                          </Stack.Item>
                         </div>
                       </div>
                     ) : answer.role === 'assistant' ? (
@@ -826,6 +833,7 @@ const Chat = () => {
                         {typeof answer.content === "string" && <Answer
                           answer={{
                             answer: answer.content,
+                            date: answer.date,
                             citations: parseCitationFromMessage(messages[index - 1]),
                             generated_chart: parsePlotFromMessage(messages[index - 1]),
                             message_id: answer.id,
@@ -853,6 +861,7 @@ const Chat = () => {
                       <Answer
                         answer={{
                           answer: "Generating answer...",
+                          date: null,
                           citations: [],
                           generated_chart: null
                         }}

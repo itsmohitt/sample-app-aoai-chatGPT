@@ -43,6 +43,7 @@ const sampleCitations: Citation[] = [
 const sampleAnswer: AskResponse = {
   answer: 'This is an example answer with citations [doc1] and [doc2].',
   citations: cloneDeep(sampleCitations),
+  date: '2024-11-20T06:09:23.316Z',
   generated_chart: null
 }
 

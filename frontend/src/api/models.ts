@@ -1,5 +1,6 @@
 export type AskResponse = {
   answer: string | []
+  date: string | null
   citations: Citation[]
   generated_chart: string | null
   error?: string
